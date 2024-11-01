@@ -29,7 +29,7 @@ public class PalindromeTestDriver extends CollectionTestBase {
 		setConfigKeyUseJavaSBP(false);
 		setConfigKeyUseTightUpperBounds(false);
 		setConfigKeyTypeScopes("strings.PalindromeTest:1");
-		check(GENERIC_PROPERTIES,"checkPalindrome(char[])",false);
+		check(GENERIC_PROPERTIES,"checkPalindrome(String)",false);
 	}
 
 }

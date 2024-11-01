@@ -1,10 +1,10 @@
 package strings;
 public class PalindromeTest {
-	//@ ensures \result == true <==> (\forall int i; 0 <= i && i < s.length; s[i] == s[s.length-i-1]);
+	//@ ensures \result == true <==> (\forall int i; 0 <= i && i < s.length(); s.charAt(i) == s.charAt(s.length()-i-1));
 	//@ signals (Exception e) false;
-	public static boolean checkPalindrome(char[] s) {
-		for (int i = 0; i < s.length/2; i++) {
-			if (s[i] != s[s.length-i-1]) {
+	public static boolean checkPalindrome(String s) {
+		for (int i = 0; i < s.length()/2; i++) {
+			if (s.charAt(i) != s.charAt(s.length()-i-1)) {
 				return false;
 			}
 		}
