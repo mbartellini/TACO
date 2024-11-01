@@ -138,8 +138,17 @@ public class PrecompiledModules implements ITacoStage {
 		boolean empty = config.getBuiltInModules().isEmpty();
 
 		// java.lang
-		if (empty || config.getBuiltInModules().contains("JString"))
-			precompiledModules.add(JString.getInstance());
+		if (empty || config.getBuiltInModules().contains("JString")) {
+			String resource_to_load;
+			if (TacoConfigurator.getInstance().getUseJavaArithmetic() == true) {
+				resource_to_load = "ar/edu/taco/engine/precompiledmodules/java_lang_String_JavaPrimitiveIntegerValue.djals";
+			} else {
+				resource_to_load = "ar/edu/taco/engine/precompiledmodules/java_lang_String_int.djals";
+			}
+			TacoConfigurator.getInstance().addDynAlloyParserInputResources(
+					resource_to_load
+			);
+		}
 
 		if (empty || config.getBuiltInModules().contains("JSystem"))
 			precompiledModules.add(JSystem.getInstance());
