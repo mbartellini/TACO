@@ -1,6 +1,6 @@
 package strings;
 public class PalindromeTest {
-	//@ ensures \result == true <==> (\forall int i; 0 <= i && i < s.length(); s.charAt(i) == s.charAt(s.length()-i-1));
+	//@ ensures \result == true <==> (\forall int iter; 0 <= iter && iter < s.length(); s.charAt(iter) == s.charAt(s.length()-iter-1));
 	//@ signals (Exception e) false;
 	public static boolean checkPalindrome(String s) {
 		for (int i = 0; i < s.length()/2; i++) {
