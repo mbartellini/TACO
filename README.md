@@ -33,6 +33,90 @@ _(^^) TACO already has a `mujava++.jar` included, unless needed there is no need
 
 Create a new project from existing files, select Java 7 for both compilation and execution, and all jar files inside the `lib` folder (disregard jar files inside `lib/stryker` folder).
 
+## Windows Installation
+
+> [!NOTE]
+> Use WSL2
+
+## Setting Up Dependencies
+
+- GitHub Cli
+  - `sudo apt update`
+  - `sudo apt upgrade`
+  - `sudo apt install gh`
+  - After installation:
+    - `gh auth login -w`
+
+- Setup SSH
+  - Generate SSH Key
+    - `ssh-keygen -t ed25519 -C "your_email@example.com"`
+      - enter for default directory, enter password if
+    - `eval "$(ssh-agent -s)"`
+    - `ssh-add ~/.ssh/id_ed25519`
+
+- Change back to home
+  - `cd ~`
+
+- Install Unzip
+  - `sudo apt-get install unzip`
+
+- Install Zip
+  - `sudo apt-get install zip`
+
+- Install SDKMan
+  - `curl -s "https://get.sdkman.io" | bash`
+
+  - Then run:
+    - `source "$HOME/.sdkman/bin/sdkman-init.sh"`
+
+- Install Java 7
+  - `sdk install java 7.0.352-zulu`
+
+- Copy `java` to `/usr/bin/`
+  - Java is located at: `.sdkman/candidates/java/7.0.352-zulu/bin/java`
+
+  - Copy with:
+    - `cp .sdkman/candidates/java/7.0.352-zulu/bin/java /usr/bin/`
+
+- Install Ant 1.9
+  - `sdk install ant 1.9.15`
+
+- Intellij Installation
+  - `wget https://download.jetbrains.com/idea/ideaIC-2024.2.4.tar.gz`
+
+  - Untar/unzip with:
+    - `tar -xvf ideaIC-2024.2.4.tar.gz`
+
+- Close terminal and open new terminal
+
+### TACO Setup
+
+- [GitHub](https://github.com/mffrias/TACO):
+  - Go to `Code` and copy link
+
+- In `Terminal` run:
+  - `git clone https://github.com/mffrias/TACO`
+  - `cd TACO`
+  - `./setupTACO.sh`
+
+- Change into Intellij Directory
+  - `cd idea-IC-whatever-numbers`, use tab to autocomplete
+  - `cd bin`
+
+  - Open Intellij:
+    - `./idea`
+
+- Setup Project
+  - Create new project
+
+  - Find the location you would like to create it and give it a name
+
+  - JDK version 1.7
+
+  - Top Left (Hamburger 4 lines) -> Project Structure ->
+  Modules -> + (Plus Sign) -> Insert Modules -> Import Module ->
+  Create from Existing Sources -> Select TACO directory
+
 ## Importing TACO into IntelliJ
 
 Follow the same instructions as for Eclipse. Set the `tests` folder as a `Source` folder.
