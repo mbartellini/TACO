@@ -36,7 +36,7 @@ Create a new project from existing files, select Java 7 for both compilation and
 ## Windows Installation
 
 > [!NOTE]
-> Use WSL2
+> Use [WSL2](https://ubuntu.com/desktop/wsl)
 
 ## Setting Up Dependencies
 
