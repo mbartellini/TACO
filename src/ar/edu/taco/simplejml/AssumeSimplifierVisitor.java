@@ -47,29 +47,30 @@ public class AssumeSimplifierVisitor extends JmlAstClonerStatementVisitor{
 				(((JEqualityExpression)self.predicate().specExpression().expression()).left() instanceof JLocalVariableExpression ||
 						(((JEqualityExpression)self.predicate().specExpression().expression()).left() instanceof JClassFieldExpression));
 		JmlAssignmentStatement theNewAssignment = null;
-		if (isEquality && leftVarOrField){
-			//Will create new variable and assign the RHS expression to it, so that the standard translation copes with it.
-			//Will modify the assume so that now the LHS is equated to the just added variable.
-			CType typeRHS = ((JEqualityExpression)self.predicate().specExpression().expression()).right().getApparentType();
-			String newVarName = getNewVarName();
-			JVariableDefinition theNewVar = new JVariableDefinition(self.getTokenReference(), 0,
-					typeRHS, newVarName, ((JEqualityExpression)self.predicate().specExpression().expression()).right());
-			
-			JVariableDeclarationStatement theNewVarDeclSt = new JVariableDeclarationStatement(self.getTokenReference(), theNewVar, new JavaStyleComment[0]);
-			
-			JLocalVariableExpression theVarExpre = new JLocalVariableExpression(self.getTokenReference(), theNewVar);
-			JEqualityExpression newEquExpre = new JEqualityExpression(self.getTokenReference(), JEqualityExpression.OPE_EQ, ((JEqualityExpression)(self.predicate().specExpression().expression())).left(), 
-					theVarExpre);
-			JmlSpecExpression theEquSpecExpre = new JmlSpecExpression(newEquExpre);
-			JmlPredicate theEquPred = new JmlPredicate(theEquSpecExpre);
-			JmlAssumeStatement simplfiedAssume = new JmlAssumeStatement(self.getTokenReference(), false, false, theEquPred, null, new JavaStyleComment[0]);
-			JStatement[] theStatements = new JStatement[]{theNewVarDeclSt, simplfiedAssume};
-			org.multijava.mjc.JBlock newBlockWithSimplifiedAssume = new org.multijava.mjc.JBlock(self.getTokenReference(), theStatements, self.getComments());
-			super.getStack().push(newBlockWithSimplifiedAssume);
-		} else {
-			super.getStack().push(self);
-		}
-		
+// 		TODO: Check if necessary
+// 		if (isEquality && leftVarOrField){
+// 			//Will create new variable and assign the RHS expression to it, so that the standard translation copes with it.
+// 			//Will modify the assume so that now the LHS is equated to the just added variable.
+// 			CType typeRHS = ((JEqualityExpression)self.predicate().specExpression().expression()).right().getApparentType();
+// 			String newVarName = getNewVarName();
+// 			JVariableDefinition theNewVar = new JVariableDefinition(self.getTokenReference(), 0,
+// 					typeRHS, newVarName, ((JEqualityExpression)self.predicate().specExpression().expression()).right());
+//
+// 			JVariableDeclarationStatement theNewVarDeclSt = new JVariableDeclarationStatement(self.getTokenReference(), theNewVar, new JavaStyleComment[0]);
+//
+// 			JLocalVariableExpression theVarExpre = new JLocalVariableExpression(self.getTokenReference(), theNewVar);
+// 			JEqualityExpression newEquExpre = new JEqualityExpression(self.getTokenReference(), JEqualityExpression.OPE_EQ, ((JEqualityExpression)(self.predicate().specExpression().expression())).left(),
+// 					theVarExpre);
+// 			JmlSpecExpression theEquSpecExpre = new JmlSpecExpression(newEquExpre);
+// 			JmlPredicate theEquPred = new JmlPredicate(theEquSpecExpre);
+// 			JmlAssumeStatement simplfiedAssume = new JmlAssumeStatement(self.getTokenReference(), false, false, theEquPred, null, new JavaStyleComment[0]);
+// 			JStatement[] theStatements = new JStatement[]{theNewVarDeclSt, simplfiedAssume};
+// 			org.multijava.mjc.JBlock newBlockWithSimplifiedAssume = new org.multijava.mjc.JBlock(self.getTokenReference(), theStatements, self.getComments());
+// 			super.getStack().push(newBlockWithSimplifiedAssume);
+// 		} else {
+// 			super.getStack().push(self);
+// 		}
+		super.getStack().push(self);
 	}
 	
 	
