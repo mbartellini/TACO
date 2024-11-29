@@ -780,8 +780,17 @@ public class JmlAstDeterminizerVisitor extends JmlBaseVisitor {
         this.getQueue().offer(newSelfSecond);
     }
 
-
     @Override
+    public void visitNullLiteral(JNullLiteral self) {
+        JNullLiteral newSelfFirst = new JNullLiteral(self.getTokenReference());
+        JNullLiteral newSelfSecond = new JNullLiteral(self.getTokenReference());
+
+        this.getQueue().offer(newSelfFirst);
+        this.getQueue().offer(newSelfSecond);
+    }
+
+
+        @Override
     public void visitParenthesedExpression(JParenthesedExpression self) {
         JExpression theExpre = self.expr();
         theExpre.accept(this);
