@@ -40,8 +40,8 @@ Specification
 Implementation 
 {
     throw:=null;
-    thiz.java_lang_String_length = 0;
-    thiz.java_lang_String_contents = (none->none);
+    thiz.java_lang_String_length := 0;
+    thiz.java_lang_String_contents := (none->none);
     // havoc thiz;
 }
 
