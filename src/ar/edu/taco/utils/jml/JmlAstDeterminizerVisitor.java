@@ -1140,6 +1140,27 @@ public class JmlAstDeterminizerVisitor extends JmlBaseVisitor {
         this.getQueue().offer(newSelfSecond);
     }
 
+
+    @Override
+    public void visitModuloExpression(JModuloExpression self) {
+        JExpression left = self.left();
+        left.accept(this);
+        JExpression leftFirst = (JExpression) this.getQueue().poll();
+        JExpression leftSecond = (JExpression) this.getQueue().poll();
+
+        JExpression right = self.right();
+        right.accept(this);
+        JExpression rightFirst = (JExpression) this.getQueue().poll();
+        JExpression rightSecond = (JExpression) this.getQueue().poll();
+
+        JModuloExpression newSelfFirst = new JModuloExpression(self.getTokenReference(), leftFirst, rightFirst);
+        JModuloExpression newSelfSecond = new JModuloExpression(self.getTokenReference(), leftSecond, rightSecond);
+
+        this.getQueue().offer(newSelfFirst);
+        this.getQueue().offer(newSelfSecond);
+
+    }
+
     @Override
     public void visitDivideExpression(JDivideExpression self) {
         JExpression left = self.left();
@@ -1158,6 +1179,12 @@ public class JmlAstDeterminizerVisitor extends JmlBaseVisitor {
         this.getQueue().offer(newSelfFirst);
         this.getQueue().offer(newSelfSecond);
 
+    }
+
+
+    public void visitNewObjectExpression(JNewObjectExpression self) {
+        this.getQueue().offer(self);
+        this.getQueue().offer(self);
     }
 
     //Notice that we assume no splitting occurs when accepting left and right.
@@ -1258,6 +1285,14 @@ public class JmlAstDeterminizerVisitor extends JmlBaseVisitor {
         JNewArrayExpression newSelfSecond = new JNewArrayExpression(self.getTokenReference(), self.getType(), newDimsAndInitsSecond);
         this.getQueue().offer(newSelfSecond);
     }
+
+    @Override
+    public void visitNullLiteral(JNullLiteral self){
+        this.theQueue.offer(self);
+        this.theQueue.offer(self);
+    }
+
+
 
     @Override
     public void visitEqualityExpression(JEqualityExpression self) {

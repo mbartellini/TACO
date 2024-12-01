@@ -116,31 +116,41 @@ public class TranslateCallable implements Callable<TacoAnalysisResult> {
     @Override
     public TacoAnalysisResult call() throws Exception {
 
-        JCompilationUnitType JUnit = this.JUnitWrapped.theUnit;
-        TacoAnalysisResult translatedAnalysisResult = new TacoAnalysisResult();
-        translatedAnalysisResult.setCompilationUnit(JUnit);
-
-        String fileNameIdent = JUnit.fileNameIdent();
-
+//        JCompilationUnitType JUnit = null;
+//        List<JCompilationUnitType> theJUnits = this.JUnitWrapped.theUnit;
+//
+//        for (JCompilationUnitType unit : theJUnits){
+//            if (unit.declaresType(TacoConfigurator.getInstance().getString(TacoConfigurator.CLASS_TO_CHECK_FIELD))){
+//                JUnit = unit;
+//            }
+//        }
+//
+//        TacoAnalysisResult translatedAnalysisResult = new TacoAnalysisResult();
+//        translatedAnalysisResult.setCompilationUnit(JUnit);
+//
+////        String fileNameIdent = JUnit.fileNameIdent();
+//
         List<String> fileNames = null;
-        JCompilationUnitType units = null;
+        List<JCompilationUnitType> units = null;
 
         List<JCompilationUnitType> simplified_compilation_units = new ArrayList<JCompilationUnitType>();
-        List<JCompilationUnitType> theDeterminizedUnitTypeList = new ArrayList<JCompilationUnitType>();
+        List<JCompilationUnitType> theDeterminizedUnitTypeList = this.JUnitWrapped.theUnit;
 
         try {
             semJmlParser.acquire();
-            theDeterminizedUnitTypeList.add(JUnit);
             fileNames = write_simplified_compilation_units(theDeterminizedUnitTypeList);
-            units = parse_simplified_compilation_units(fileNames).remove(0);
 
+            //This index 0 that was used below (removed now) strongly depends on the order the user lists the typed in the
+            //driver for the analysis. Needs to be improved.
+
+            units = parse_simplified_compilation_units(fileNames);
         } catch (InterruptedException exc) {
             System.out.println(exc);
         } finally {
             semJmlParser.release();
         }
         //  System.out.println("!!Parse Simplified Compilation Units Complete for thread: " + Thread.currentThread().getName());
-        simplified_compilation_units.add(units);
+        simplified_compilation_units.addAll(units);
 
         // BEGIN JAVA TO JDYNALLOY TRANSLATION
         //  System.out.println("<-----Beginning JDynaAlloy Translation----->");
@@ -343,7 +353,8 @@ public class TranslateCallable implements Callable<TacoAnalysisResult> {
 
                 ProcessBuilder pb = new ProcessBuilder();
                 pb.redirectErrorStream(true);
-                pb.command("/usr/bin/java", "-Xss300m", "-jar", "/Users/mfrias/eclipse-workspace-new/FreshTACO1/TACO/lib/alloyRunner.jar", fileToAnalyze);
+                String alloyRunner = System.getProperty("user.dir") + System.getProperty("file.separator") + "lib" + System.getProperty("file.separator") + "alloyRunner.jar";
+                pb.command("/usr/bin/java", "-Xss300m", "-jar", alloyRunner, fileToAnalyze);
 
 
                 try {
