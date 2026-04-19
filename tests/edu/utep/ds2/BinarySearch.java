@@ -6,6 +6,7 @@ public class BinarySearch {
 
 	/*@
 	@ requires arr != null;
+	@ requires (\forall int i; 0 <= i && i < arr.length - 1; arr[i] <= arr[i+1]);
 	@ ensures \result <==> (\exists int i; 0 <= i && i < length(arr); arr[i] == val); @*/
 	public boolean bs(int val, int[] arr) {
 		// 1. Handle edge cases
