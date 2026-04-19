@@ -13,3 +13,6 @@ bin
 mutation_log
 org.eclipse.jdt.core.prefs
 StrykerLastFixFound.java
+lib
+out
+.idea
