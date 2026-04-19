@@ -41,7 +41,7 @@ public class StringCharCounterexampleTestDriver extends CollectionTestBase {
 
         public void test_genericMethod2Test() throws VizException {
             config();
-            check(GENERIC_PROPERTIES,"returnTrue(java_lang_String)",false);
+            check(GENERIC_PROPERTIES,"returnTrue(java_lang_String)",true);
         }
 
 }
