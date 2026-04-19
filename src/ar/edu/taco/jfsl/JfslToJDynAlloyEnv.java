@@ -79,9 +79,12 @@ public class JfslToJDynAlloyEnv {
 
 		addJmlTypename("Integer");
 		putRename("Integer", "java_lang_Integer");
-		
+
 		addJmlTypename("Boolean");
 		putRename("Boolean", "java_lang_Boolean");
+
+		addJmlTypename("String");
+		putRename("String", "java_lang_String");
 	}
 	
 	public void addJmlTypename(String signatureId) {
